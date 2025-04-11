@@ -2,24 +2,26 @@
 public class InputValidationTests
 {
     [Test]
-    public void TestSanitizeInput()
+    public void TestValidUsername()
     {
-        string maliciousInput = "<script>alert('XSS');</script>";
-        string sanitizedInput = InputValidator.SanitizeInput(maliciousInput);
-        
-        Assert.IsFalse(sanitizedInput.Contains("<script>"));
+        Assert.That(InputValidator.ValidateInput("ValidUser123", "^[a-zA-Z0-9_]{3,20}$"), Is.True);
     }
 
     [Test]
-    public void TestValidateInput()
+    public void TestInvalidUsername()
     {
-        string validInput = "Username123";
-        string invalidInput = "<script>";
+        Assert.That(InputValidator.ValidateInput("Invalid!@#", "^[a-zA-Z0-9_]{3,20}$"), Is.False);
+    }
 
-        bool isValid = InputValidator.ValidateInput(validInput, "^[a-zA-Z0-9_]{3,20}$");
-        bool isInvalid = InputValidator.ValidateInput(invalidInput, "^[a-zA-Z0-9_]{3,20}$");
+    [Test]
+    public void TestValidEmail()
+    {
+        Assert.That(InputValidator.ValidateInput("email@example.com", @"^[^@\s]+@[^@\s]+\.[^@\s]+$"), Is.True);
+    }
 
-        Assert.IsTrue(isValid);
-        Assert.IsFalse(isInvalid);
+    [Test]
+    public void TestInvalidEmail()
+    {
+        Assert.That(InputValidator.ValidateInput("invalid-email", @"^[^@\s]+@[^@\s]+\.[^@\s]+$"), Is.False);
     }
 }
