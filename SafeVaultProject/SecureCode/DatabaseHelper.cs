@@ -1,25 +1,39 @@
 using Microsoft.Data.SqlClient;
 
-public static class DatabaseHelper
+// Interface defining database methods for mocking in tests
+public interface IDatabaseHelper
 {
-    private static string connectionString = "my_connection_string";
+    bool IsUserValid(string username);
+}
 
-    // Execute a parameterized query to avoid SQL injection
-    public static void AddUser(string username, string email)
+// Concrete class that implements database interactions
+public class DatabaseHelper : IDatabaseHelper
+{
+    // Fake connection string to simulate database connection
+    private static string connectionString = "MyConnectionString";
+
+    // Method to verify if a user exists in the database
+    public bool IsUserValid(string username)
     {
-        string query = "INSERT INTO Users (Username, Email) VALUES (@Username, @Email)";
-        
-        using (SqlConnection conn = new SqlConnection(connectionString))
+        // SQL query using parameterized statements to prevent SQL injection
+        string query = "SELECT COUNT(*) FROM Users WHERE Username = @Username";
+
+        // Initialize the SQL connection with the (fake) connection string
+        using (SqlConnection connection = new SqlConnection(connectionString))
         {
-            using (SqlCommand cmd = new SqlCommand(query, conn))
-            {
-                // Add parameters securely
-                cmd.Parameters.AddWithValue("@Username", username);
-                cmd.Parameters.AddWithValue("@Email", email);
-                
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
+            SqlCommand command = new SqlCommand(query, connection);
+
+            // Safely add user input as a parameter to the query
+            command.Parameters.AddWithValue("@Username", username);
+
+            // Open the SQL connection (this simulates database interaction)
+            connection.Open();
+
+            // Execute the query and return the result
+            int result = (int)command.ExecuteScalar();
+
+            // Return true if user exists (result > 0), false otherwise
+            return result > 0;
         }
     }
 }
