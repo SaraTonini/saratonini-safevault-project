@@ -1,0 +1,6 @@
+C:\GitHub\saratonini-safevault-project\SafeVaultTests\obj\Debug\net8.0\SafeVaultTests.csproj.AssemblyReference.cache
+C:\GitHub\saratonini-safevault-project\SafeVaultTests\obj\Debug\net8.0\SafeVaultTests.GeneratedMSBuildEditorConfig.editorconfig
+C:\GitHub\saratonini-safevault-project\SafeVaultTests\obj\Debug\net8.0\SafeVaultTests.AssemblyInfoInputs.cache
+C:\GitHub\saratonini-safevault-project\SafeVaultTests\obj\Debug\net8.0\SafeVaultTests.AssemblyInfo.cs
+C:\GitHub\saratonini-safevault-project\SafeVaultTests\obj\Debug\net8.0\SafeVaultTests.csproj.CoreCompileInputs.cache
+C:\GitHub\saratonini-safevault-project\SafeVaultTests\obj\Debug\net8.0\SafeVaultTests.sourcelink.json
